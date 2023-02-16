@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/reset.css"/>
+    <!-- <link rel="stylesheet" href="./assets/css/reset.css"/> -->
     <link rel ="stylesheet" href = "assets/styles.css"/>
     <title>Web API Code Quiz Homepage</title>
 </head>
 <body>
+    <header>
+        <a id="high-score" href="./high-score.html" >View High Scores</a>
+        <div id ="timer">Seconds Remaining:</div>
+    </header>
 <div class=".container" >
     <div id="home" class="flex-column flex-center">
         <h1>Coding Quiz Challenge</h1>
         <p>Try to answer the following code-related questions within the time limit. Keep in mind that your incorrect answers will penalize your score/time by ten seconds!</p>
-        <a href="/game.html" class="btn">Start Quiz</a>
+        <button id = "start-button">Start Quiz</button>
         
+        
+    </div>
+    <div>
+        <h2 id="quiz"></h2>
+        <div id= "selections"></div>
     </div>
 </div>
 
