@@ -102,6 +102,8 @@ p{
     transform: none;
     
 }
+
+
 #quiz{
     font-size: 30px;
     padding: 50px;
@@ -112,13 +114,28 @@ p{
     text-decoration: none;
     background-color: blue;
     border-radius: 20px;
+    margin-bottom: 20px;
 }
- #selections{
-    font-size:30px ;
-    text-align: center;
-    width: 100%;
-    position: relative;
-    align-content: center;
-    justify-content: center;
+ #selections button{
+    background-color: #279fe6; 
+    border: 1px solid black; 
+    color: white; 
+    padding: 10px 24px; 
+    cursor: pointer; 
+    width: 50%; 
+    display: block; /* Make the buttons appear below each other */
+    align-items: center;
+    margin: auto;
+    margin-bottom: 10px;
+    padding:10px 3px 10px 3px;
+    border-radius:10px; 
+   
 
 } 
+
+#selections button:not(:last-child){
+    border-bottom: none;
+}
+#selections button:hover{
+    transform: scale(1.2);
+}

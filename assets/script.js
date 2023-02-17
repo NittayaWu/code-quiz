@@ -59,6 +59,7 @@ var startButton = document.querySelector("#start-button");
 function startGame() {
   setTime();
   beginQuiz();
+  hideHome();
 }
 
 function beginQuiz(){
@@ -93,7 +94,7 @@ var secondsLeft = 60;
 
 function setTime() {
   // Sets interval in variable
-  var timerInterval = setInterval(function () {
+  var timerInterval = setInterval(function() {
     secondsLeft--;
     startTimer.textContent = secondsLeft;
 
@@ -104,4 +105,13 @@ function setTime() {
       sendMessage();
     }
   }, 1000);
+}
+// Hide start button when quiz begins
+function hideHome() {
+  var home = document.getElementById("home");
+  if (home.style.display === "none") {
+    home.style.display = "block";
+  } else {
+    home.style.display = "none";
+  }
 }
