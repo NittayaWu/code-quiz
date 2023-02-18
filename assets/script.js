@@ -1,3 +1,12 @@
+var secondsLeft = 60;
+var index = 0;
+var score = 0;
+var finalScore;
+// console.log(popQuiz[index])
+// index ++
+
+var startButton = document.querySelector("#start-button");
+
 var popQuiz = [
   {
     question: "Inside which HTML element do we put the JavaScript?",
@@ -25,23 +34,39 @@ var popQuiz = [
     correct: "target",
   },
   {
-    question: "Which method takes the last element off of a given array and returns it?",
+    question:
+      "Which method takes the last element off of a given array and returns it?",
     choices: ["toString()", "pop()", "push()", "shift()"],
     correct: "pop()",
   },
   {
     question: "Which method stores a data item in a storage?",
-    choices: ["localStorage.getItem() ", "localStorage.setItem() ", "	localStorage.letItem() ", "localStorage.tetItem() "],
+    choices: [
+      "localStorage.getItem() ",
+      "localStorage.setItem() ",
+      "	localStorage.letItem() ",
+      "localStorage.tetItem() ",
+    ],
     correct: "localStorage.setItem() ",
   },
   {
     question: "How do you create a function in JavaScript?",
-    choices: ["function = myFunction", "function = myFunction()", "function:myFunction()", "function myFunction() "],
+    choices: [
+      "function = myFunction",
+      "function = myFunction()",
+      "function:myFunction()",
+      "function myFunction() ",
+    ],
     correct: "function myFunction()  ",
   },
   {
     question: "How does a FOR loop start?",
-    choices: ["for (i <= 8; i++)", "for (i = 0; i <= 8)", "for (i = 0; i <= 8; i++)  ", "for i = 1 to 8 "],
+    choices: [
+      "for (i <= 8; i++)",
+      "for (i = 0; i <= 8)",
+      "for (i = 0; i <= 8; i++)  ",
+      "for i = 1 to 8 ",
+    ],
     correct: "for (i = 0; i <= 8; i++)",
   },
   {
@@ -50,68 +75,75 @@ var popQuiz = [
     correct: "= ",
   },
 ];
-var index = 0
-// console.log(popQuiz[index])
-// index ++
-// console.log(popQuiz[index])
-var startButton = document.querySelector("#start-button");
-
+//functions to be executed:
 function startGame() {
   setTime();
   beginQuiz();
   hideHome();
+  checkAnswer();
+  getScore();
+  endQuiz();
+}
+// Hide start button when quiz begins and show quiz
+function hideHome() { 
+  var home = document.getElementById("home");
+  var quiz = document.getElementById("quiz");
+ 
+  if (home.style.display === "none") {
+    home.style.display = "block";
+    quiz.style.display = "none";
+  } else {
+    home.style.display = "none";
+    quiz.style.display = "block";
+  }
+}
+// start button click
+startButton.addEventListener("click", startGame);
+var startTimer = document.querySelector("#timer");
+// timer Function()
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    startTimer.textContent = "Seconds Remaining:" + secondsLeft;
+    if (secondsLeft <= 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      endQuiz();
+      startTimer.textContent = "Time is up!"
+      sendMessage();
+    }
+  }, 1000);
 }
 
-function beginQuiz(){
-  document.querySelector("#quiz").textContent = popQuiz[index].question
-  document.querySelector('#selections').innerHTML ="";
+
+//start quiz when button is clicked
+function beginQuiz() {
+  document.querySelector("#quiz").textContent = popQuiz[index].question;
+  document.querySelector("#selections").innerHTML = "";
   for (let i = 0; i < popQuiz[index].choices.length; i++) {
-    const element =  popQuiz[index].choices[i];
-    var selectionBtn = document.createElement("button")
+    const element = popQuiz[index].choices[i];
+    var selectionBtn = document.createElement("button");
     selectionBtn.textContent = element;
     selectionBtn.onclick = checkAnswer;
     document.querySelector("#selections").append(selectionBtn);
   }
 }
-
-function checkAnswer(event){
-console.log(event.target)
-if (event.target.textContent === popQuiz[index].correct) {
-  console.log("correct")
-  
-  
-} else {
-  console.log("incorrect")
-}
-index++
-beginQuiz();
-}
-
-startButton.addEventListener("click", startGame);
-var startTimer = document.querySelector("#timer");
-
-var secondsLeft = 60;
-
-function setTime() {
-  // Sets interval in variable
-  var timerInterval = setInterval(function() {
-    secondsLeft--;
-    startTimer.textContent = secondsLeft;
-
-    if (secondsLeft <= 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      // Calls function to create and append image
-      sendMessage();
-    }
-  }, 1000);
-}
-// Hide start button when quiz begins
-function hideHome() {
-  var home = document.getElementById("home");
-  if (home.style.display === "none") {
-    home.style.display = "block";
+// check if choices equals correct
+function checkAnswer(event) {
+  console.log(event.target);
+  if (event.target.textContent === popQuiz[index].correct) {
+    console.log("correct");
+    currentScore += 10;
+    event.target.classList.add("correct");
   } else {
-    home.style.display = "none";
+    console.log("incorrect");
+    secondsLeft -= 10;
+    event.target.classList.add("incorrect");
   }
+  index++;
+  beginQuiz();
 }
+
+
+
