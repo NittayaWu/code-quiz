@@ -1,12 +1,9 @@
+// declared variables
 var secondsLeft = 60;
 var index = 0;
 var score = 0;
 var finalScore;
-// console.log(popQuiz[index])
-// index ++
-
 var startButton = document.querySelector("#start-button");
-
 var popQuiz = [
   {
     question: "Inside which HTML element do we put the JavaScript?",
@@ -44,7 +41,7 @@ var popQuiz = [
     choices: [
       "localStorage.getItem() ",
       "localStorage.setItem() ",
-      "	localStorage.letItem() ",
+      "localStorage.letItem() ",
       "localStorage.tetItem() ",
     ],
     correct: "localStorage.setItem() ",
@@ -131,19 +128,20 @@ function beginQuiz() {
 }
 // check if choices equals correct
 function checkAnswer(event) {
+  var element = event.target;
   console.log(event.target);
-  if (event.target.textContent === popQuiz[index].correct) {
+  if (element.textContent === popQuiz[index].correct) {
+    score++;
     console.log("correct");
-    currentScore += 10;
-    event.target.classList.add("correct");
+    
   } else {
     console.log("incorrect");
     secondsLeft -= 10;
-    event.target.classList.add("incorrect");
+   
   }
   index++;
   beginQuiz();
+
+  
 }
-
-
 

@@ -1,153 +1,135 @@
-:root{
- background-color: lightgrey;
+:root {
+  background-color: lightgrey;
 }
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-header{
-    margin-top: 60px ;
+header {
+  margin-top: 60px;
 }
-#high-score{
-    font-size: 20px;
-    color:black;
-    text-align: left;
+#high-score {
+  font-size: 20px;
+  color: black;
+  text-align: left;
 
-    margin-top: 30px;
-    padding: 20px;
+  margin-top: 30px;
+  padding: 20px;
 }
-#timer{
-    font-size: 20px;
-    color:black;
-   
-    margin-top: 30px;
-    padding: 20px;
-    display: inline;
-  
+#timer {
+  font-size: 20px;
+  color: black;
 
-  
-  
-}
-    
-h1{
-    font-size: 40px;
-    color:rgb(7, 7, 46);
-    margin-top: 100px;
-    margin-bottom: 30px;
+  margin-top: 30px;
+  padding: 20px;
+  display: inline;
 }
 
-
-
-
-
-p{
-    font-size: 16px;
-    margin-bottom:100px;
-    text-align: center;
-    
- 
+h1 {
+  font-size: 40px;
+  color: rgb(7, 7, 46);
+  margin-top: 100px;
+  margin-bottom: 30px;
 }
 
-.container{
-    width: 100vw;
-    height:100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: 2 rem;
+p {
+  font-size: 16px;
+  margin-bottom: 100px;
+  text-align: center;
 }
 
-.flex-column{
-    display: flex;
-    flex-direction: column;
-}
-.flex-center{
-    justify-content: center;
-    align-items: center;
-}
-.justify-center{
-    justify-content: center;
-
-}
-.text-center{
-    text-align: center;
-}
-.hidden{
-    display: none;
-}
-#start-button{
-    font-size: 30px;
-    padding: 10px;
-    width: 250px;
-    text-align: center;
-    margin-bottom: 30px;
-    text-decoration: none;
-    background-color: rgb(26, 190, 26);
-    color:white;
-    border: 1px solid black;
-    border-radius: 4px;
-}   
-#start-button::hover{
-    cursor:pointer;
-    transition: transform 150ms;
-    transform: scale (1.03);
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2 rem;
 }
 
-#start-button[disabled]:hover{
-    
-    box-shadow: none;
-    transform: none;
-    
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.text-center {
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+#start-button {
+  font-size: 30px;
+  padding: 10px;
+  width: 250px;
+  text-align: center;
+  margin-bottom: 30px;
+  text-decoration: none;
+  background-color: rgb(26, 190, 26);
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+#start-button::hover {
+  cursor: pointer;
+  transition: transform 150ms;
+  transform: scale (1.03);
 }
 
-
-#quiz{
-    font-size: 30px;
-    padding: 50px;
-    width: 800px;
-    text-align: center;
-    margin-top: 20px;
-    margin: auto;
-    text-decoration: none;
-    background-color: blue;
-    border-radius: 20px;
-    margin-bottom: 20px;
+#start-button[disabled]:hover {
+  box-shadow: none;
+  transform: none;
 }
- #selections button{
-    background-color: #279fe6; 
-    border: 1px solid black; 
-    color: white; 
-    padding: 10px 24px; 
-    cursor: pointer; 
-    width: 50%; 
-    display: block; /* Make the buttons appear below each other */
-    align-items: center;
-    margin: auto;
-    margin-bottom: 10px;
-    padding:10px 3px 10px 3px;
-    border-radius:10px; 
-   
 
-} 
+#quiz {
+  font-size: 30px;
+  padding: 50px;
+  width: 800px;
+  text-align: center;
+  margin-top: 20px;
+  margin: auto;
+  text-decoration: none;
+  background-color: blue;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+#selections button {
+  background-color: #279fe6;
+  border: 1px solid black;
+  color: white;
+  padding: 10px 24px;
+  cursor: pointer;
+  width: 50%;
+  display: block; /* Make the buttons appear below each other */
+  align-items: center;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 10px 3px 10px 3px;
+  border-radius: 10px;
+}
 
-#selections button:not(:last-child){
-    border-bottom: none;
+#selections button:not(:last-child) {
+  border-bottom: none;
 }
-#selections button:hover{
-    transform: scale(1.2);
+#selections button:hover {
+  transform: scale(1.2);
 }
-#box {
-    position: absolute;
-    left: 30%;
-    top: 20%;
-    width: 500px;
-    height: 500px;
-    border: 1px solid blue;
+#high-score-box {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
 }
