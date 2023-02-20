@@ -16,9 +16,10 @@ Much credit goes to my central tutor support, Bobbi Tarkany for her help and gui
 
 
 ## Screenshots of Application:
+
 ![Code Quiz Home](https://user-images.githubusercontent.com/121972113/220174119-c59978a4-6d3e-4fe5-b801-ed288f30e4a7.png)
-![Questions)](https://user-images.githubusercontent.com/121972113/220174137-675fbb88-5275-4ccd-97f7-efb5481fc469.png)
-![High Scores] images.githubusercontent.com/121972113/220174158-9d586b7b-5944-4003-8443-9822f8cb77ac.png)
+![Questions](https://user-images.githubusercontent.com/121972113/220174137-675fbb88-5275-4ccd-97f7-efb5481fc469.png)
+![High Score](http://user-images.githubusercontent.com/121972113/220174158-9d586b7b-5944-4003-8443-9822f8cb77ac.png)
 
 ## Screen Recording of Application:
 https://drive.google.com/file/d/1VCbczM4GRxJmyPIx4s3xJmewGaqzbntm/view
