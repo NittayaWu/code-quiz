@@ -1,40 +1,35 @@
-// declared variables
-var secondsLeft = 60;
-var index = 0;
-var score = 0;
-var finalScore;
-var startButton = document.querySelector("#start-button");
+// popQuiz objects
 var popQuiz = [
   {
     question: "Inside which HTML element do we put the JavaScript?",
     choices: ["<JavaScript>", "<Script>", "<JS>", "<Java>"],
-    correct: "<Script>",
+    answer: "<Script>",
   },
   {
     question: "Which of the following is not a primitive data type?",
     choices: ["boolean", "string", "number", "object"],
-    correct: "object",
+    answer: "object",
   },
   {
     question: "Which symbol is used for a single line comment in Javascript?",
     choices: ["//", "*/", "/*", "!--"],
-    correct: "//",
+    answer: "//",
   },
   {
     question: " What would 3+2+”6″ console log as?",
     choices: ["11", "38", "56", "326"],
-    correct: "56",
+    answer: "56",
   },
   {
     question: "Which type of Pop up box is not available in JavaScript?",
     choices: ["target", "alert", "prompt", "confirm"],
-    correct: "target",
+    answer: "target",
   },
   {
     question:
       "Which method takes the last element off of a given array and returns it?",
     choices: ["toString()", "pop()", "push()", "shift()"],
-    correct: "pop()",
+    answer: "pop()",
   },
   {
     question: "Which method stores a data item in a storage?",
@@ -47,14 +42,14 @@ var popQuiz = [
     correct: "localStorage.setItem() ",
   },
   {
-    question: "How do you create a function in JavaScript?",
+    question: "What is the correct way to write a JavaScript array?",
     choices: [
-      "function = myFunction",
-      "function = myFunction()",
-      "function:myFunction()",
-      "function myFunction() ",
+      '"var letters = ["A", "B", "C"]"',
+      '"var letters = "A", "B", "C"',
+      '"var letters = (1:"A, 2:"B", 3:"C")"',
+      '"var letters = 1 = ("A"), 2 = ("B"), 3 = ("C")"',
     ],
-    correct: "function myFunction()  ",
+    answer: '"var letters = ["A", "B", "C"]"',
   },
   {
     question: "How does a FOR loop start?",
@@ -64,84 +59,173 @@ var popQuiz = [
       "for (i = 0; i <= 8; i++)  ",
       "for i = 1 to 8 ",
     ],
-    correct: "for (i = 0; i <= 8; i++)",
+    answer: "for (i = 0; i <= 8; i++)",
   },
   {
     question: "Which operator is used to assign a value to a variable?",
     choices: ["=  ", ";", "()", ":"],
-    correct: "= ",
+    answer: "= ",
   },
-];
-//functions to be executed:
-function startGame() {
-  setTime();
-  beginQuiz();
-  hideHome();
-  checkAnswer();
-  getScore();
-  endQuiz();
-}
-// Hide start button when quiz begins and show quiz
-function hideHome() { 
-  var home = document.getElementById("home");
-  var quiz = document.getElementById("quiz");
- 
-  if (home.style.display === "none") {
-    home.style.display = "block";
-    quiz.style.display = "none";
-  } else {
-    home.style.display = "none";
-    quiz.style.display = "block";
-  }
-}
-// start button click
-startButton.addEventListener("click", startGame);
-var startTimer = document.querySelector("#timer");
-// timer Function()
-function setTime() {
-  // Sets interval in variable
-  var timerInterval = setInterval(function () {
-    secondsLeft--;
-    startTimer.textContent = "Seconds Remaining:" + secondsLeft;
-    if (secondsLeft <= 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      endQuiz();
-      startTimer.textContent = "Time is up!"
-      sendMessage();
-    }
-  }, 1000);
-}
-
-
-//start quiz when button is clicked
-function beginQuiz() {
-  document.querySelector("#quiz").textContent = popQuiz[index].question;
-  document.querySelector("#selections").innerHTML = "";
-  for (let i = 0; i < popQuiz[index].choices.length; i++) {
-    const element = popQuiz[index].choices[i];
-    var selectionBtn = document.createElement("button");
-    selectionBtn.textContent = element;
-    selectionBtn.onclick = checkAnswer;
-    document.querySelector("#selections").append(selectionBtn);
-  }
-}
-// check if choices equals correct
-function checkAnswer(event) {
-  var element = event.target;
-  console.log(event.target);
-  if (element.textContent === popQuiz[index].correct) {
-    score++;
-    console.log("correct");
-    
-  } else {
-    console.log("incorrect");
-    secondsLeft -= 10;
-   
-  }
-  index++;
-  beginQuiz();
-
   
+];
+// Declared variables
+var score = 0;
+var questionIndex = 0;
+var currentTime = document.querySelector("#currentTime");
+var timer = document.querySelector("#startTime");
+var questionsDiv = document.querySelector("#questionsDiv");
+var container = document.querySelector("#container");
+// Seconds left
+var secondsLeft = 80;
+var holdInterval = 0;
+//  penalty time in seconds
+var penalty = 10;
+// Creates new element
+var ulCreate = document.createElement("ul");
+
+// Event listener for timer
+timer.addEventListener("click", function () {
+  if (holdInterval === 0) {
+      holdInterval = setInterval(function () {
+          secondsLeft--;
+          currentTime.textContent = "Seconds Remaining: " + secondsLeft;
+
+          if (secondsLeft <= 0) {
+              clearInterval(holdInterval);
+              allDone();
+              currentTime.textContent = "Time is up!";
+          }
+      }, 1000);
+  }
+  render(questionIndex);
+});
+
+// Renders questions and choices to page: 
+function render(questionIndex) {
+  // Clears existing data 
+  questionsDiv.innerHTML = "";
+  ulCreate.innerHTML = "";
+  // For loops to loop through all info in array
+  for (var i = 0; i < popQuiz.length; i++) {
+      // Appends question title only
+      var userQuestion = popQuiz[questionIndex].question;
+      var userChoices = popQuiz[questionIndex].choices;
+      questionsDiv.textContent = userQuestion;
+  }
+  // New for each for question choices
+  userChoices.forEach(function (newItem) {
+      var listItem = document.createElement("li");
+      listItem.textContent = newItem;
+      questionsDiv.appendChild(ulCreate);
+      ulCreate.appendChild(listItem);
+      listItem.addEventListener("click", (compare));
+  })
+}
+// Event to compare choices with answer
+function compare(event) {
+  var element = event.target;
+
+  if (element.matches("li")) {
+
+      var createDiv = document.createElement("div");
+      createDiv.setAttribute("id", "createDiv");
+      // Correct condition 
+      if (element.textContent == popQuiz[questionIndex].answer) {
+          score++;
+          createDiv.textContent = "Correct! The answer is:  " + popQuiz[questionIndex].answer;
+      } else {
+          // Will deduct 10 seconds off secondsLeft for wrong answers
+          secondsLeft = secondsLeft - penalty;
+          createDiv.textContent = "Wrong! The correct answer is:  " + popQuiz[questionIndex].answer;
+      }
+
+  }
+  // Question Index determines number question user is on
+  questionIndex++;
+
+  if (questionIndex >= popQuiz.length) {
+      // All done will append last page with user stats
+      endQuiz();
+      createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + popQuiz.length + " Correct!";
+  } else {
+      render(questionIndex);
+  }
+  questionsDiv.appendChild(createDiv);
+
+}
+// endQuiz will append last page
+function endQuiz() {
+  questionsDiv.innerHTML = "";
+  currentTime.innerHTML = "";
+
+  // create h1
+  var createH1 = document.createElement("h1");
+  createH1.setAttribute("id", "createH1");
+  createH1.textContent = "End of Quiz!"
+
+  questionsDiv.appendChild(createH1);
+
+  // Paragraph
+  var createP = document.createElement("p");
+  createP.setAttribute("id", "createP");
+
+  questionsDiv.appendChild(createP);
+
+  // Calculates time remaining and replaces it with score
+  if (secondsLeft >= 0) {
+      var timeRemaining = secondsLeft;
+      var createP2 = document.createElement("p");
+      clearInterval(holdInterval);
+      createP.textContent = "Your final score is: " + timeRemaining;
+      questionsDiv.appendChild(createP2);
+  }
+
+  // Label
+  var createLabel = document.createElement("label");
+  createLabel.setAttribute("id", "createLabel");
+  createLabel.textContent = "Enter your initials: ";
+  questionsDiv.appendChild(createLabel);
+
+  // input
+  var createInput = document.createElement("input");
+  createInput.setAttribute("type", "text");
+  createInput.setAttribute("id", "initials");
+  createInput.textContent = "";
+  questionsDiv.appendChild(createInput);
+
+  // submit
+  var createSubmit = document.createElement("button");
+  createSubmit.setAttribute("type", "submit");
+  createSubmit.setAttribute("id", "Submit");
+  createSubmit.textContent = "Submit";
+  questionsDiv.appendChild(createSubmit);
+
+  // Event listener to capture initials and local storage for initials and score
+  createSubmit.addEventListener("click", function () {
+      var initials = createInput.value;
+
+      if (initials === null) {
+
+          console.log("No value entered!");
+
+      } else {
+          var finalScore = {
+              initials: initials,
+              score: timeRemaining
+          }
+          console.log(finalScore);
+          var allScores = localStorage.getItem("allScores");
+          if (allScores === null) {
+              allScores = [];
+          } else {
+              allScores = JSON.parse(allScores);
+          }
+          allScores.push(finalScore);
+          var newScore = JSON.stringify(allScores);
+          localStorage.setItem("allScores", newScore);
+          window.location.replace("./high-score.html");
+      }
+  });
+
 }
 
